@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog;
 use Illuminate\Http\Request;
-
+ 
 class BlogController extends Controller
 {
     /**
@@ -36,9 +36,9 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Blog $blog)
+    public function show(string $id)
     {
-        //
+        return new BlogResource(Blog::findOrFail($id));
     }
 
     /**

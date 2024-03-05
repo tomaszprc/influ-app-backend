@@ -16,7 +16,7 @@ class BlogResource extends JsonResource
     {
         
         return [
-            "id"=> $this->id,
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
         ];

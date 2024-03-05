@@ -24,6 +24,7 @@ Route::get('/v1/annoucements', [AnnoucementController::class, 'index']);
 Route::get('/v1/annoucements/{annoucement}', [AnnoucementController::class, 'show']);
 
 Route::get('/v1/blog', [BlogController::class, 'index']);
+Route::get('/v1/blog/{post}', [BlogController::class, 'show']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

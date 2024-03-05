@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AnnoucementResource;
-use App\Models\Annoucement;
+use App\Http\Resources\BlogResource;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 
-class AnnoucementController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return AnnoucementResource::collection(Annoucement::all());
+        return BlogResource::collection(Blog::all());
     }
 
     /**
@@ -36,15 +36,15 @@ class AnnoucementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Blog $blog)
     {
-        return new AnnoucementResource(Annoucement::findOrFail($id));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Annoucement $annoucement)
+    public function edit(Blog $blog)
     {
         //
     }
@@ -52,7 +52,7 @@ class AnnoucementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Annoucement $annoucement)
+    public function update(Request $request, Blog $blog)
     {
         //
     }
@@ -60,7 +60,7 @@ class AnnoucementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Annoucement $annoucement)
+    public function destroy(Blog $blog)
     {
         //
     }

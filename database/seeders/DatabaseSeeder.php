@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Annoucement;
+use App\Models\Blog;
 use App\Models\Company;
 use Illuminate\Database\Seeder;
 
@@ -17,5 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         Company::factory(10)->create();
         Annoucement::factory(10)->create();
+        Blog::factory(10)->create();
     }
 }

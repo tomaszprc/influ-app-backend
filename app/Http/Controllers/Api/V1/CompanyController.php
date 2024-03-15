@@ -7,11 +7,45 @@ use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
     public function __construct() {
-        $this->middleware("auth:sanctum")->except(['show']);
+        $this->middleware("auth:sanctum")->except(['show', 'register']);
+    }
+
+    public function register(Request $request) {
+      
+        Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'unique:companies|required|email',
+            'password' => 'required'
+        ])->validate();
+
+        $name = $request->name;
+        $email = $request->email;
+        $password = $request->password;
+        $description = $request->description;
+        $website = $request->website;
+
+        $companyUser = Company::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+            'description' => $description,
+            'website' => $website,
+            'verified' => false
+        ]);
+
+        $token = $companyUser->createToken('api-token')->plainTextToken;
+
+        return response()->json([
+            'token' => $token
+        ]);
     }
 
     /**
@@ -53,10 +87,6 @@ class CompanyController extends Controller
     public function edit(Company $company)
     {
         //
-    }
-
-    public function kupa() {
-        return "kupa";
     }
 
     /**

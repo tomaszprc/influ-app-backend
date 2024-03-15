@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/v1/user', function (Request $request) {
 Route::get('/v1/companies', [CompanyController::class, 'index']);
 Route::get('/v1/companies/{company}', [CompanyController::class, 'show']);
 Route::post('/v1/companies', [CompanyController::class, 'store']);
+Route::post('/v1/company/register', [CompanyController::class, 'register']);
 
 Route::get('/v1/annoucements', [AnnoucementController::class, 'index']);
 Route::get('/v1/annoucements/{annoucement}', [AnnoucementController::class, 'show']);

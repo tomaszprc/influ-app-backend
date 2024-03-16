@@ -22,7 +22,7 @@ class CompanyController extends Controller
       
         Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'email' => 'unique:companies|required|email',
+            'email' => 'unique:companies|unique:influencers|required|email',
             'password' => 'required'
         ])->validate();
 

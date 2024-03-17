@@ -15,5 +15,6 @@ class Influencer extends Model
      *
      * @var array
      */
+    // protected $guarded = [] to jest odwrotność fillable
     protected $fillable = ['username', 'email','password', 'description', 'first_name', 'last_name', 'verified', 'youtube_url', 'instagram_url', 'tiktok_url'];
 }

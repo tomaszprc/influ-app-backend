@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\DataTypes\AnnouncementStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AnnoucementResource;
+use App\Models\ActiveCampaign;
 use App\Models\Annoucement;
 use App\Models\Company;
 use Illuminate\Http\Request;
@@ -35,7 +37,7 @@ class AnnoucementController extends Controller
     {
         $emailUser = $request->user()->email;
         $company = Company::where('email', $emailUser)->first();
-
+        
         if(!$company) {
             throw ValidationException::withMessages([
                 'user' => ['You dont have possibility to do this action']
@@ -46,6 +48,7 @@ class AnnoucementController extends Controller
             $title = $request->title;
             $description = $request->description;
             $onlyVerifiedInfluencers = $request->onlyVerifiedInfluencers;
+            $status = $request->status;
 
             Annoucement::create([
                 'company_id' => $company_id,
@@ -54,8 +57,8 @@ class AnnoucementController extends Controller
                 "onlyVerifiedInfluencers" => $onlyVerifiedInfluencers,
                 "start_at" => date("Y-m-d H:i:s"),
                 "finished_at" => date("Y-m-d H:i:s"),
+                "status"=> $status
             ]);
-
         
             return response()->json([
                 "message" => "Post created"
@@ -92,5 +95,29 @@ class AnnoucementController extends Controller
     public function destroy(Annoucement $annoucement)
     {
         //
+    }
+
+    public function createCampaign(Request $request) {
+
+        $annoucement_id = $request->annoucement_id;
+        $influencer_id = $request->influencer_id;
+
+        $influencerInCampaign = ActiveCampaign::where('influencer_id', $influencer_id)->where('annoucement_id',$annoucement_id)->first();
+
+        if ($influencerInCampaign) {
+            throw ValidationException::withMessages([
+                'message' => ['Influencer is already in annoucement!']
+            ]);
+        }
+
+        ActiveCampaign::create([
+            "annoucement_id" => $annoucement_id,
+            "influencer_id" => $influencer_id
+        ]);
+        
+
+        return response()->json([
+            "message" => "Joined!"
+        ]);
     }
 }

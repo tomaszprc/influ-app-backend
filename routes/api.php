@@ -35,6 +35,7 @@ Route::post('/v1/company/register', [CompanyController::class, 'register']);
 Route::get('/v1/annoucements', [AnnoucementController::class, 'index']);
 Route::post('/v1/annoucements', [AnnoucementController::class, 'store'])->middleware('auth:sanctum');
 Route::get('/v1/annoucements/{annoucement}', [AnnoucementController::class, 'show']);
+Route::post('/v1/annoucements/join', [AnnoucementController::class, 'createCampaign']);
 
 Route::get('/v1/blog', [BlogController::class, 'index']);
 Route::get('/v1/blog/{post}', [BlogController::class, 'show']);
